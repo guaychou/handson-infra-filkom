@@ -1,0 +1,6 @@
+---
+- name: Ansible-role main master
+  become: yes
+  hosts: all
+  roles:
+    - "ubuntu"

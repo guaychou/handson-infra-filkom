@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: denots-web
+  labels:
+    name: denots-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: denots-web
+  template:
+    metadata:
+      name: denots-web
+      labels:
+        name: denots-web
+    spec:
+      containers:
+        - name: denots-web
+          image: lordchou/demo-deno:latest
+          ports:
+            - containerPort: 3000
+        - name: redis
+          image: redis:6.0.5-alpine
+          ports:
+            - containerPort: 6379

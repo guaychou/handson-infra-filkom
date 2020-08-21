@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: denots-web-service
+spec:
+  type: LoadBalancer
+  selector:
+    name: denots-web
+  ports:
+    - port: 3000
+      targetPort: 3000
