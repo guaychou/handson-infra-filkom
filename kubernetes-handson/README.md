@@ -4,6 +4,7 @@ This repository will help how to install kubernetes on your local pc/laptop with
 ## Requirements
 - VirtualBox
 - make
+- Ansible
 - [Rancher Kubernetes Engine](https://github.com/rancher/rke)
 - 6GB of Free Memory (Recommended)
 
