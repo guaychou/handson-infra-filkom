@@ -72,7 +72,7 @@
 
 - name: Enabling sysctl.conf
   sysctl:
-    name: net.bridge.bridge-nf-call-iptables
+    name: "{{ item }}"
     value: '1'
     sysctl_set: yes
     state: present
