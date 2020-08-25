@@ -32,8 +32,8 @@
     update_cache: yes
   vars:
     packages_docker:
-    - docker-ce
-    - docker-ce-cli
+    - docker-ce={{ docker_version }}
+    - docker-ce-cli={{ docker_version }}
     - containerd.io
     
 - name: Add the user appending the group docker to the user's groups
@@ -46,3 +46,50 @@
   systemd:
     state: started
     name: docker
+
+- name: Enabling some module
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ip6_udp_tunnel
+    - ip_set
+    - ip_set_hash_ip
+    - ip_set_hash_net
+    - iptable_mangle
+    - iptable_raw
+    - udp_tunnel
+    - veth
+    - vxlan
+    - xt_comment
+    - xt_mark
+    - xt_multiport
+    - xt_nat
+    - xt_recent
+    - xt_set
+    - xt_statistic
+    - xt_tcpudp
+
+- name: Enabling sysctl.conf
+  sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: '1'
+    sysctl_set: yes
+    state: present
+    reload: yes    
+    sysctl_file: /etc/sysctl.conf
+  with_items:
+    - net.bridge.bridge-nf-call-iptables
+    - net.ipv4.ip_forward
+
+- name: Enabling TCP Forwarding in SSHD
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#AllowTcpForwarding'
+    line: AllowTcpForwarding yes
+    
+- name: Restart SSH service
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: ssh    
