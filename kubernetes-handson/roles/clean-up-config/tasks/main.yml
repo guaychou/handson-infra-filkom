@@ -1,0 +1,27 @@
+---
+
+- name: "Listing unused existing volume created by kubelet"
+  shell: |
+    mount | grep tmpfs| grep '/var/lib/kubelet' | awk {' print $3 '}
+  register: results
+
+- name: "Create list of volume"
+  set_fact:
+    block_devices: "{{ block_devices|default([]) + [ item ] }}"
+  loop: "{{ results.stdout_lines }}" 
+
+- name: "Unmounting unused existing volume created by kubelet"
+  mount: 
+    path: "{{ item }}"
+    state: unmounted   
+  with_items: 
+    - /var/lib/kubelet
+    - /var/lib/rancher
+
+- name: "Make Container Network Interface down"
+  shell: |
+    ifconfig "{{ item }}" down
+  with_items:
+    - flannel.1
+    - cni0  
+  ignore_errors: yes

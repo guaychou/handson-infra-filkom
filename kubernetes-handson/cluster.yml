@@ -7,7 +7,7 @@ nodes:
   role:
   - controlplane
   - etcd
-  hostname: "machine-1"
+  hostname_override: "machine-1"
   cpu: 1
   memory: 1500
   user: vagrant
@@ -23,7 +23,7 @@ nodes:
   internal_address: 192.168.99.102
   role:
   - worker
-  hostname: machine-2
+  hostname_override: machine-2
   cpu: 1
   memory: 1000
   user: vagrant

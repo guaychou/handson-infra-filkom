@@ -5,15 +5,42 @@ This repository will help how to install kubernetes on your local pc/laptop with
 - VirtualBox
 - make
 - Ansible
+- kubectl
 - [Rancher Kubernetes Engine](https://github.com/rancher/rke)
-- 6GB of Free Memory (Recommended)
+- 4GB of Free Memory (Recommended)
 
 ## Installation Environment
 
-If you are using 1 pc/laptop, use command below
+Use command below to provision the machine, and install Kubernetes on premise with [Rancher Kubernetes Engine](https://github.com/rancher/rke)
 
 ```sh
 $ make all
 ```
 
-else, if you are using multiple pc/laptop, create virtual machine, install docker. After that provision the kubernetes installation with [Rancher Kubernetes Engine](https://github.com/rancher/rke)
+if you want to only spawn VM with docker installed and configured for kubernetes installation 
+```sh
+$ make start-vm
+```
+
+If you want to only install Kubernetes after you use __start-vm__ 
+
+```sh
+$ make start-kubernetes
+```
+
+If you want to remove Kubernetes installation after you use __start-kubernetes__ 
+```sh
+$ make rm-kubernetes
+```
+
+If you want to stop the vm
+
+```sh
+$ make stop-vm
+```
+
+If you want to remove the vm
+
+```sh
+$ make rm-vm
+```

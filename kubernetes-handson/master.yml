@@ -1,6 +1,18 @@
 ---
-- name: Ansible-role main master
+
+- name: Install Docker - Setting up Nodes
   become: yes
   hosts: all
   roles:
-    - "ubuntu"
+    - "install-docker-ubuntu"
+    - "setting-up-nodes"
+  tags: 
+    - "setup"
+
+- name: Clean Your Existing Kubernetes Configuration in Nodes     
+  become: yes
+  hosts: all
+  roles:
+    - "clean-up-config"
+  tags: 
+    - "clean"
