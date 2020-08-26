@@ -48,27 +48,26 @@
     name: docker
 
 - name: Enabling some module
-  modprobe:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - ip6_udp_tunnel
-    - ip_set
-    - ip_set_hash_ip
-    - ip_set_hash_net
-    - iptable_mangle
-    - iptable_raw
-    - udp_tunnel
-    - veth
-    - vxlan
-    - xt_comment
-    - xt_mark
-    - xt_multiport
-    - xt_nat
-    - xt_recent
-    - xt_set
-    - xt_statistic
-    - xt_tcpudp
+  blockinfile:
+    path: /etc/modules-load.d/modules.conf
+    block: |
+      ip6_udp_tunnel
+      ip_set
+      ip_set_hash_ip
+      ip_set_hash_net
+      iptable_mangle
+      iptable_raw
+      udp_tunnel
+      veth
+      vxlan
+      xt_comment
+      xt_mark
+      xt_multiport
+      xt_nat
+      xt_recent
+      xt_set
+      xt_statistic
+      xt_tcpudp
 
 - name: Enabling sysctl.conf
   sysctl:
@@ -93,3 +92,7 @@
     state: restarted
     daemon_reload: yes
     name: ssh    
+
+- name: Reboot the Machine
+  reboot:
+    reboot_timeout: 60    

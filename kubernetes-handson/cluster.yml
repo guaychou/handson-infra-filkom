@@ -9,7 +9,7 @@ nodes:
   - etcd
   hostname: "machine-1"
   cpu: 1
-  memory: 2048
+  memory: 1500
   user: vagrant
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -25,7 +25,7 @@ nodes:
   - worker
   hostname: machine-2
   cpu: 1
-  memory: 1024
+  memory: 1000
   user: vagrant
   docker_socket: /var/run/docker.sock
   ssh_key: ""
@@ -33,23 +33,7 @@ nodes:
   ssh_cert: ""
   ssh_cert_path: ""
   labels: {}
-  taints: []    
-- address: 192.168.99.103
-  port: "22"
-  internal_address: 192.168.99.103
-  role:
-  - worker
-  hostname: machine-3
-  cpu: 1
-  memory: 1024
-  user: vagrant
-  docker_socket: /var/run/docker.sock
-  ssh_key: ""
-  ssh_key_path: ~/.ssh/vagrant_rsa
-  ssh_cert: ""
-  ssh_cert_path: ""
-  labels: {}
-  taints: []      
+  taints: []           
 services:
   etcd:
     image: ""
@@ -97,19 +81,21 @@ services:
     extra_args: {}
     extra_binds: []
     extra_env: []
-    cluster_domain: handson.filkom
+    cluster_domain: filkom-handson
     infra_container_image: ""
     cluster_dns_server: 10.43.0.10
     fail_swap_on: false
-    generate_serving_certificate: false
+    generate_serving_certificate: true
   kubeproxy:
     image: ""
     extra_args: {}
     extra_binds: []
     extra_env: []
 network:
-  plugin: canal
-  options: {}
+  plugin: flannel
+  options: 
+    flannel_iface: enp0s8
+    flannel_backend_type: vxlan
   mtu: 0
   node_selector: {}
   update_strategy: null
@@ -118,7 +104,10 @@ authentication:
   sans: []
   webhook: null
 addons: ""
-addons_include: []
+addons_include:
+  - https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
+  - https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+  - ./kubernetes-deployment-example/metallb-config.yaml
 system_images:
   etcd: rancher/coreos-etcd:v3.4.3-rancher1
   alpine: rancher/rke-tools:v0.1.59
@@ -132,7 +121,7 @@ system_images:
   coredns: rancher/coredns-coredns:1.6.9
   coredns_autoscaler: rancher/cluster-proportional-autoscaler:1.7.1
   nodelocal: rancher/k8s-dns-node-cache:1.15.7
-  kubernetes: rancher/hyperkube:v1.17.9-rancher1
+  kubernetes: rancher/hyperkube:v1.18.6-rancher1-1
   flannel: rancher/coreos-flannel:v0.12.0
   flannel_cni: rancher/flannel-cni:v0.3.0-rancher6
   calico_node: rancher/calico-node:v3.13.4
@@ -158,42 +147,14 @@ authorization:
   mode: rbac
   options: {}
 ignore_docker_version: null
-kubernetes_version: ""
+kubernetes_version: "v1.18.6-rancher1-1"
 private_registries: []
-ingress:
-  provider: ""
-  options: {}
-  node_selector: {}
-  extra_args: {}
-  dns_policy: ""
-  extra_envs: []
-  extra_volumes: []
-  extra_volume_mounts: []
-  update_strategy: null
-cluster_name: ""
-cloud_provider:
-  name: ""
-prefix_path: ""
-addon_job_timeout: 0
-bastion_host:
-  address: ""
-  port: ""
-  user: ""
-  ssh_key: ""
-  ssh_key_path: ""
-  ssh_cert: ""
-  ssh_cert_path: ""
+cluster_name: "filkomub-handson"
 monitoring:
-  provider: ""
+  provider: "metrics-server"
   options: {}
   node_selector: {}
-  update_strategy: null
-  replicas: null
-restore:
-  restore: false
-  snapshot_name: ""
-dns:
-  provider: coredns
-  upstreamnameservers:
-    - 1.1.1.1
-    - 8.8.4.4
+ingress:
+  provider: nginx
+  options: {}
+  node_selector: {}
