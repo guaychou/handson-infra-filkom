@@ -22,7 +22,7 @@
       xt_statistic
       xt_tcpudp
 
-- name: Enabling sysctl.conf
+- name: Enabling system kernel configuration
   sysctl:
     name: "{{ item }}"
     value: '1'
@@ -32,7 +32,6 @@
     sysctl_file: /etc/sysctl.conf
   with_items:
     - net.bridge.bridge-nf-call-iptables
-    - net.ipv4.ip_forward
 
 - name: Enabling TCP Forwarding in SSHD
   lineinfile:
