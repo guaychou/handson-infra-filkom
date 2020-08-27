@@ -45,3 +45,9 @@ If you want to remove the vm
 ```sh
 $ make rm-vm
 ```
+
+if you want to restart the vm 
+
+```sh
+$ make reload-vm
+```

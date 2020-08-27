@@ -18,6 +18,7 @@
     - "{{ block_devices }}"
     - /var/lib/kubelet
     - /var/lib/rancher
+  ignore_errors: yes  
 
 - name: "Make Container Network Interface down"
   shell: |
