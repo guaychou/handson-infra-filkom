@@ -15,6 +15,7 @@
     path: "{{ item }}"
     state: unmounted   
   with_items: 
+    - "{{ block_devices }}"
     - /var/lib/kubelet
     - /var/lib/rancher
 
