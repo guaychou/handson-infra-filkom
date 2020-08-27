@@ -2,12 +2,13 @@
 This repository will help how to install kubernetes on your local pc/laptop with two nodes (1 master and 1 worker node).
 
 ## Requirements
-- VirtualBox
-- make
-- Ansible
-- kubectl
+- [VirtualBox](https://www.virtualbox.org/)
+- [Make](https://man7.org/linux/man-pages/man1/make.1.html)
+- [Ansible](https://www.ansible.com/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - [Rancher Kubernetes Engine](https://github.com/rancher/rke)
 - 4GB of Free Memory (Recommended)
+- Mac OS / Linux Working Environment
 
 ## Installation Environment
 
