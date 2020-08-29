@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: denots-web-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     name: denots-web
   ports:

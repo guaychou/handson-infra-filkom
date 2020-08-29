@@ -12,9 +12,8 @@ start-vm:
 start-kubernetes:
 	@echo "Installing Kubernetes in your VM . . . "
 	@rke up
-	@echo "Configuring your kubectl command line . . . "
-	@export KUBECONFIG=${PWD}/kube_config_cluster.yml
-	@kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+	@echo "Generating secret for metallb deployments . . . "
+	@KUBECONFIG=${PWD}/kube_config_cluster.yml kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
 rm-kubernetes:
 	@echo "Removing Kubernetes in your VM. . . ."
