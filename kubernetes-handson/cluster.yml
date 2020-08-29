@@ -152,9 +152,5 @@ private_registries: []
 cluster_name: "filkomub-handson"
 monitoring:
   provider: "metrics-server"
-  options: {}
-  node_selector: {}
 ingress:
-  provider: nginx
-  options: {}
-  node_selector: {}
+  provider: none

@@ -14,10 +14,11 @@ start-kubernetes:
 	@rke up
 	@echo "Generating secret for metallb deployments . . . "
 	@KUBECONFIG=${PWD}/kube_config_cluster.yml kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+	@echo "Kubernetes installation success !!!"
 
 rm-kubernetes:
 	@echo "Removing Kubernetes in your VM. . . ."
-	@rke remove
+	@rke remove --force
 	@ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory master.yml --tags "clean"
 
 stop-vm:

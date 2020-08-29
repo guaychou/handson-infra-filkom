@@ -18,15 +18,19 @@
     - "{{ block_devices }}"
     - /var/lib/kubelet
     - /var/lib/rancher
-  ignore_errors: yes  
-
+  
 - name: "Make Container Network Interface down"
   shell: |
-    ifconfig "{{ item }}" down
+    if /sbin/ethtool "{{ item }}" | grep -q "Link detected: yes"; then
+      ifconfig "{{ item }}" down
+      echo Interface "{{ item }} down successfully . . ."
+    else 
+      echo Interface "{{ item }}" not found, skipping . . . 
+    fi
+  register: iface_status  
   with_items:
     - flannel.1
     - cni0  
-  ignore_errors: yes
 
 - name: "Removing Kubernetes config created by rancher"
   file:
@@ -50,4 +54,3 @@
     - /var/log/kube-audit
     - /var/log/pods
     - /var/run/calico
-  ignore_errors: yes
