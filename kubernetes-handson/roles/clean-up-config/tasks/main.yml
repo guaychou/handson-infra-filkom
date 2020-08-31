@@ -22,8 +22,8 @@
 - name: "Make Container Network Interface down"
   shell: |
     if /sbin/ethtool "{{ item }}" | grep -q "Link detected: yes"; then
-      ifconfig "{{ item }}" down
-      echo Interface "{{ item }} down successfully . . ."
+      ip link delete "{{ item }}"
+      echo Interface "{{ item }} delete successfully . . ."
     else 
       echo Interface "{{ item }}" not found, skipping . . . 
     fi

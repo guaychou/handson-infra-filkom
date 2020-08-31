@@ -3,11 +3,10 @@
 nodes:
 - address: 192.168.99.101
   port: "22"
-  internal_address: "192.168.99.101"
   role:
   - controlplane
   - etcd
-  hostname_override: "machine-1"
+  hostname: "machine-1"
   cpu: 1
   memory: 1500
   user: vagrant
@@ -20,10 +19,9 @@ nodes:
   taints: []
 - address: 192.168.99.102
   port: "22"
-  internal_address: 192.168.99.102
   role:
   - worker
-  hostname_override: machine-2
+  hostname: machine-2
   cpu: 1
   memory: 1000
   user: vagrant
@@ -85,7 +83,7 @@ services:
     infra_container_image: ""
     cluster_dns_server: 10.43.0.10
     fail_swap_on: false
-    generate_serving_certificate: true
+    generate_serving_certificate: false
   kubeproxy:
     image: ""
     extra_args: {}

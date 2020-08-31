@@ -4,7 +4,7 @@ NODES=0
 settings = YAML.load_file('cluster.yml')
 Vagrant.configure("2") do |config|
   settings["nodes"].each do |instance|
-    config.vm.define "#{instance["hostname_override"]}" do |machine|
+    config.vm.define "#{instance["hostname"]}" do |machine|
     config.ssh.insert_key = false
     config.vm.boot_timeout = 800
     config.ssh.private_key_path = ["~/.ssh/vagrant_rsa", "~/.vagrant.d/insecure_private_key"]
@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
       vb.gui = false
       vb.cpus = instance["cpu"]
       vb.memory = instance["memory"]
-      vb.name = "#{instance["hostname_override"]}"
+      vb.name = "#{instance["hostname"]}"
     end 
     machine.vm.network "private_network",ip: instance["address"]
     config.vm.provision "shell", inline: "swapoff -a"
