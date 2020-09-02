@@ -36,3 +36,19 @@ reload-vm:
 	@echo "Restarting your VM . . . "
 	@vagrant reload	
 	@echo "Done . . ."
+
+backup-kubernetes:
+	@echo "Backing up etcd. . . ."
+	@rke etcd snapshot-save --name snapshot.db --config cluster.yml
+	@if [ ! -d ${PWD}/backup-etcd-folder ]; then\
+		mkdir backup-etcd-folder\
+	fi
+	@ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory master.yml --tags "etcdbackup"
+	@echo "Backup done"
+
+restore-kubernetes:
+	@echo "Uploading etcd snapshot. . ."
+	@ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory master.yml --tags "etcdrestore"
+	@echo "Restoring kubernetes . . . ."
+	@rke etcd snapshot-restore --config cluster.yml --name snapshot.db
+	@echo "Restore done . . ."

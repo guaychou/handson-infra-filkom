@@ -16,3 +16,19 @@
     - "clean-up-config"
   tags: 
     - "clean"
+
+- name: Backup etcd Kubernetes
+  become: yes
+  hosts: machine-1
+  roles:
+    - "backup-etcd"
+  tags:
+    -  "etcdbackup"     
+
+- name: Backup etcd Kubernetes
+  become: yes
+  hosts: machine-1
+  roles:
+    - "restore-etcd"
+  tags:
+    -  "etcdrestore" 

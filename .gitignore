@@ -4,3 +4,4 @@ cluster.yml.bak
 rke-old
 cluster.rkestate
 kube_config_cluster.yml
+backup-etcd-folder

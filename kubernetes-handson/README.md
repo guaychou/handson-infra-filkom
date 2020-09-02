@@ -51,3 +51,15 @@ if you want to restart the vm
 ```sh
 $ make reload-vm
 ```
+
+if you want to backup the etcd kubernetes
+
+```sh
+$ make backup-kubernetes
+```
+
+if you want to restore the etcd kubernetes
+
+```sh
+$ make restore-kubernetes
+```
