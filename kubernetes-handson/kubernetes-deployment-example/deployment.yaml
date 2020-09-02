@@ -1,26 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: denots-web
+  name: handson-web
   labels:
-    name: denots-web
+    name: handson-web
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
-      name: denots-web
+      name: handson-web
   template:
     metadata:
-      name: denots-web
+      name: handson-web
       labels:
-        name: denots-web
+        name: handson-web
     spec:
       containers:
-        - name: denots-web
-          image: lordchou/demo-deno:latest
+        - name: handson-web
+          image: lordchou/handson-api:latest
           ports:
-            - containerPort: 3000
-        - name: redis
-          image: redis:6.0.5-alpine
-          ports:
-            - containerPort: 6379
+            - containerPort: 8080

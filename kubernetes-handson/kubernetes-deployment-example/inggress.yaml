@@ -1,7 +1,7 @@
 kind: Ingress
 apiVersion: extensions/v1beta1
 metadata:
-  name: "ingress-denots-web"
+  name: "ingress-handson-web"
 spec:
   rules:
     - host: filkom.example.net
@@ -9,5 +9,5 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: denots-web-service
+              serviceName: handson-web-service
               servicePort: 3000
