@@ -3,6 +3,7 @@ This repository will help how to install kubernetes on your local pc/laptop with
 
 ## Requirements
 - [VirtualBox](https://www.virtualbox.org/)
+- [Vagrant](https://www.vagrantup.com/)
 - [Make](https://man7.org/linux/man-pages/man1/make.1.html)
 - [Ansible](https://www.ansible.com/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
