@@ -103,6 +103,7 @@ authentication:
   webhook: null
 addons: ""
 addons_include:
+  - https://raw.githubusercontent.com/longhorn/longhorn/master/deploy/longhorn.yaml
   - https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
   - https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
   - ./kubernetes-deployment-example/metallb-config.yaml

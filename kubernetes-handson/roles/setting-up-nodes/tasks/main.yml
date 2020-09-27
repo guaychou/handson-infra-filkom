@@ -45,6 +45,11 @@
     daemon_reload: yes
     name: ssh    
 
+- name: Enable open-iscsi driver for Longhorn
+  systemd:
+    enabled: yes
+    name: iscsid
+        
 - name: Reboot the Machine
   reboot:
     reboot_timeout: 60    
